@@ -1,3 +1,8 @@
+:root {
+    --primary-fg: 209,210,211;
+    --primary-bg: 26,29,33;
+}
+
 html {
     font-size: 14px;
 }
@@ -15,6 +20,8 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: rgba(var(--primary-bg, 0, 0, 0), 1);
+    color: #fff;
 }
 
 code {
