@@ -1,0 +1,16 @@
+.active-task {
+    &__time {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: baseline;
+        font-size: 9rem;
+
+        &__s {
+            font-size: 4rem;
+        }
+
+        &__spliter {
+            margin: 0 10px;
+        }
+    }
+}
