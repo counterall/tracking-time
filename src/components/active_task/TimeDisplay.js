@@ -8,16 +8,18 @@ class TimeDisplay extends PureComponent {
         this.state = {
             timestamp: 0
         };
-        // this.saveActiveTaskDurationBeforePageReload();
+        this.saveActiveTaskDurationBeforePageReload();
     }
 
     // if active task is still running when page is refreshed, save data of active task to localStorage
     saveActiveTaskDurationBeforePageReload() {
-        window.onunload = () => {
-            const oldActiveTask = Crud.getActiveTask();
-            const newActiveTask = {...oldActiveTask, duration: this.state.timestamp};
-            Crud.setActiveTask(newActiveTask);
-        };
+        if (this.props.duration !== undefined) {
+            window.onunload = () => {
+                const oldActiveTask = Crud.getActiveTask();
+                const newActiveTask = {...oldActiveTask, duration: this.state.timestamp};
+                Crud.setActiveTask(newActiveTask);
+            };
+        }
     }
 
     componentDidMount() {
