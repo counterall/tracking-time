@@ -21,8 +21,7 @@ class ActiveTask extends Component {
     handleResumeClick() {
         this.setState((state) => {
             return {isRunning: !state.isRunning}
-        });
-        this.initialiseDisplay();
+        }, this.initialiseDisplay);
     }
 
     handleFinishClick() {
