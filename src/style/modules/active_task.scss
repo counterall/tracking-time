@@ -17,6 +17,10 @@
   }
 
   &__btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
     button {
       width: 4rem;
       height: 4rem;

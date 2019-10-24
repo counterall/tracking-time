@@ -4,10 +4,11 @@ import ActiveTask from "./components/ActiveTask";
 import Crud from "./helpers/crud";
 
 const basicStructure = {
-    task_count: 0
+    task_count: 0,
+    active_task: JSON.stringify({})
 }
 
-if (localStorage.getItem("task_number") === null) {
+if (localStorage.getItem("task_count") === null) {
     Object.keys(basicStructure).forEach((k) => {
         localStorage.setItem(k, basicStructure[k])
     });

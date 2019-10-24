@@ -1,17 +1,15 @@
 import React from 'react';
 
 function Buttons(props) {
-    const resume = props.resume;
 
-    const resumeTask = () => {
-        props.resumeTask(!resume);
-    }
+    const {taskIsRunning, resumeTask, finishTask} = props;
 
     return (
-    <div className="active-task__btns">
-        <button className={resume ? "active-task__btns--resume" : "active-task__btns--pause"} onClick={resumeTask}></button>
-        <button className='active-task__btns--finish' onClick={props.finishTask}></button>
-    </div>);
+        <div className="active-task__btns">
+            <button className={ taskIsRunning ? "active-task__btns--pause" : "active-task__btns--resume"} onClick={resumeTask}></button>
+            <button className='active-task__btns--finish' onClick={finishTask}></button>
+        </div>
+    );
 }
 
 export default Buttons;

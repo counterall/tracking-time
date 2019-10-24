@@ -1,69 +1,6 @@
 import React, { PureComponent } from 'react';
-import Crud from "../../helpers/crud";
 
 class TimeDisplay extends PureComponent {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            timestamp: 0
-        };
-    }
-
-    // if active task is still running when page is refreshed, save data of active task to localStorage
-    saveActiveTaskDurationBeforePageReload() {
-        if (this.props.duration !== undefined) {
-            window.onunload = () => {
-                const oldActiveTask = Crud.getActiveTask();
-                const newActiveTask = {...oldActiveTask, duration: this.state.timestamp};
-                Crud.setActiveTask(newActiveTask);
-            };
-        }
-    }
-
-    initialiseDisplay() {
-        clearInterval(this.timer);
-        let originalTmstp = 0;
-
-        // automatically start ticking if duration of active task is 0, .i.e creating a new active task.
-
-        // pause or resume the currently active task
-        if (this.state.timestamp) {
-            originalTmstp = this.state.timestamp;
-            if (this.props.resume) {
-                this.timer = setInterval(() => {
-                    this.setState({
-                        timestamp: Math.floor(Date.now() / 1000) - originalTmstp
-                    });
-                }, 1000);
-            } else {
-                this.setState({
-                    timestamp: Math.floor(Date.now() / 1000) - originalTmstp
-                });
-            }
-        }
-        // Unfinnished task found When page reloads
-        else {
-            if (typeof this.props.duration !== 'undefined') {
-                originalTmstp = Math.floor(Date.now() / 1000) - this.props.duration;
-                if (this.props.duration === 0) {
-                    this.timer = setInterval(() => {
-                        this.setState({
-                            timestamp: Math.floor(Date.now() / 1000) - originalTmstp
-                        });
-                    }, 1000);
-                } else {
-                    this.setState({
-                        timestamp: Math.floor(Date.now() / 1000) - originalTmstp
-                    });
-                }
-            }
-        }
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.timer);
-    }
 
     formatTimeDigit(digit) {
         if (digit.toString().length < 2) {
@@ -74,14 +11,14 @@ class TimeDisplay extends PureComponent {
 
     setUpdatedTime() {
         const newTime = {
-            hour: "--",
-            min: "--",
-            sec: '--'
+            hour: "00",
+            min: "00",
+            sec: '00'
         };
-        if (this.state.timestamp) {
-            newTime.sec = this.formatTimeDigit(this.state.timestamp % 3600 % 60);
-            newTime.min = this.formatTimeDigit(Math.floor(this.state.timestamp % 3600 / 60));
-            newTime.hour = this.formatTimeDigit(Math.floor(this.state.timestamp / 3600));
+        if (this.props.timestamp) {
+            newTime.sec = this.formatTimeDigit(this.props.timestamp % 3600 % 60);
+            newTime.min = this.formatTimeDigit(Math.floor(this.props.timestamp % 3600 / 60));
+            newTime.hour = this.formatTimeDigit(Math.floor(this.props.timestamp / 3600));
         }
         return (
             <div className="active-task__time">
