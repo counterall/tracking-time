@@ -18,12 +18,13 @@ class ActiveTask extends Component {
     }
 
     render() {
-        const taskMeta = this.props.taskMeta;
+        const {duration, meta} = this.props.data;
+
         return (
             <div className="active-task">
-                <TimeDisplay />
-                <TaskInfo meta={taskMeta} />
-                <Buttons resumeTime={()=>{this.handleResumeClick()}} stopTime={()=>{this.handleBtnClick()}} />
+                <TimeDisplay duration={duration}/>
+                <TaskInfo meta={meta} />
+                <Buttons resumeTime={()=>{this.handleResumeClick()}} stopTime={()=>{this.handleStopClick()}} />
             </div>
         );
     }

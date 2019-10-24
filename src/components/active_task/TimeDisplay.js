@@ -1,23 +1,41 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
+import Crud from "../../helpers/crud";
 
-
-class TimeDisplay extends Component {
+class TimeDisplay extends PureComponent {
 
     constructor(props) {
         super(props);
         this.state = {
-            active: false,
             timestamp: 0
+        };
+        // this.saveActiveTaskDurationBeforePageReload();
+    }
+
+    // if active task is still running when page is refreshed, save data of active task to localStorage
+    saveActiveTaskDurationBeforePageReload() {
+        window.onunload = () => {
+            const oldActiveTask = Crud.getActiveTask();
+            const newActiveTask = {...oldActiveTask, duration: this.state.timestamp};
+            Crud.setActiveTask(newActiveTask);
         };
     }
 
     componentDidMount() {
-        const originalTmstp = Math.floor(Date.now() / 1000);
-        this.timer = setInterval(() => {
-            this.setState({
-                timestamp: Math.floor(Date.now() / 1000) - originalTmstp
-            });
-        }, 1000);
+        // automatically start ticking if duration of active task is 0
+        if (typeof this.props.duration !== 'undefined') {
+            const originalTmstp = Math.floor(Date.now() / 1000) - this.props.duration;
+            if (this.props.duration === 0) {
+                this.timer = setInterval(() => {
+                    this.setState({
+                        timestamp: Math.floor(Date.now() / 1000) - originalTmstp
+                    });
+                }, 1000);
+            } else {
+                this.setState({
+                    timestamp: Math.floor(Date.now() / 1000) - originalTmstp
+                });
+            }
+        }
     }
 
     componentWillUnmount() {

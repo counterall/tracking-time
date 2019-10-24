@@ -17,13 +17,14 @@ class TrackApp extends Component {
     constructor(props){
         super(props);
         this.state = {
-            
+            activeTask: Crud.getActiveTask()
         };
     }
 
     render() {
+
         return <div className="wrapper">
-            <ActiveTask />
+            <ActiveTask data={this.state.activeTask} />
         </div>
     }
 }
