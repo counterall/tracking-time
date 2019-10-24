@@ -30,7 +30,7 @@ class ActiveTask extends Component {
 
     // if active task is still running when page is refreshed, save data of active task to localStorage
     saveActiveTaskDurationBeforePageReload() {
-        window.onunload = function() {
+        window.onunload = () => {
             if (this.state.timestamp > 0) {
                 const oldActiveTask = Crud.getActiveTask();
                 const newActiveTask = {...oldActiveTask, duration: this.state.timestamp};
