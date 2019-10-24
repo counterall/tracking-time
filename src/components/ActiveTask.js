@@ -24,7 +24,7 @@ class ActiveTask extends Component {
             <div className="active-task">
                 <TimeDisplay duration={duration}/>
                 <TaskInfo meta={meta} />
-                <Buttons resumeTime={()=>{this.handleResumeClick()}} stopTime={()=>{this.handleStopClick()}} />
+                <Buttons resumeTask={()=>{this.handleResumeClick()}} stopTask={()=>{this.handleStopClick()}} />
             </div>
         );
     }
