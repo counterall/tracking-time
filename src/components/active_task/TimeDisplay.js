@@ -8,7 +8,6 @@ class TimeDisplay extends PureComponent {
         this.state = {
             timestamp: 0
         };
-        this.saveActiveTaskDurationBeforePageReload();
     }
 
     // if active task is still running when page is refreshed, save data of active task to localStorage
@@ -22,11 +21,16 @@ class TimeDisplay extends PureComponent {
         }
     }
 
-    componentDidMount() {
-        // automatically start ticking if duration of active task is 0
-        if (typeof this.props.duration !== 'undefined') {
-            const originalTmstp = Math.floor(Date.now() / 1000) - this.props.duration;
-            if (this.props.duration === 0) {
+    initialiseDisplay() {
+        clearInterval(this.timer);
+        let originalTmstp = 0;
+
+        // automatically start ticking if duration of active task is 0, .i.e creating a new active task.
+
+        // pause or resume the currently active task
+        if (this.state.timestamp) {
+            originalTmstp = this.state.timestamp;
+            if (this.props.resume) {
                 this.timer = setInterval(() => {
                     this.setState({
                         timestamp: Math.floor(Date.now() / 1000) - originalTmstp
@@ -36,6 +40,23 @@ class TimeDisplay extends PureComponent {
                 this.setState({
                     timestamp: Math.floor(Date.now() / 1000) - originalTmstp
                 });
+            }
+        }
+        // Unfinnished task found When page reloads
+        else {
+            if (typeof this.props.duration !== 'undefined') {
+                originalTmstp = Math.floor(Date.now() / 1000) - this.props.duration;
+                if (this.props.duration === 0) {
+                    this.timer = setInterval(() => {
+                        this.setState({
+                            timestamp: Math.floor(Date.now() / 1000) - originalTmstp
+                        });
+                    }, 1000);
+                } else {
+                    this.setState({
+                        timestamp: Math.floor(Date.now() / 1000) - originalTmstp
+                    });
+                }
             }
         }
     }

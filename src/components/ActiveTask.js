@@ -6,11 +6,14 @@ import Buttons from "./active_task/Buttons"
 class ActiveTask extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            resumeTask: false
+        };
+        this.handleResumeClick = this.handleResumeClick.bind(this);
     }
 
-    handleResumeClick() {
-
+    handleResumeClick(resume) {
+        this.setState({resumeTask: resume});
     }
 
     handleStopClick() {
@@ -19,12 +22,13 @@ class ActiveTask extends Component {
 
     render() {
         const {duration, meta} = this.props.data;
+        const resetTime = this.props.isNewTask;
 
         return (
             <div className="active-task">
-                <TimeDisplay duration={duration}/>
+                <TimeDisplay duration={duration} resume={this.state.resumeTask} reset={resetTime} />
                 <TaskInfo meta={meta} />
-                <Buttons resumeTask={()=>{this.handleResumeClick()}} stopTask={()=>{this.handleStopClick()}} />
+                <Buttons resume={this.state.resumeTask} resumeTask={this.handleResumeClick} stopTask={()=>{this.handleStopClick()}} />
             </div>
         );
     }

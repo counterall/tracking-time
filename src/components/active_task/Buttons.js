@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
-import { resolvePlugin } from '@babel/core';
+import React from 'react';
 
 function Buttons(props) {
-    const [resume, setResume] = useState(true);
+    const resume = props.resume;
 
     const resumeTask = () => {
-        setResume(!resume);
-        props.resumeTask();
+        props.resumeTask(!resume);
     }
 
     return (
