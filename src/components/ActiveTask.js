@@ -90,12 +90,20 @@ class ActiveTask extends Component {
     }
 
     render() {
+        let content;
+        if (this.state.timestamp || this.duration) {
+            content = (
+                <React.Fragment>
+                    <TimeDisplay timestamp={this.state.timestamp} />
+                    <TaskInfo meta={this.meta} />
+                    <Buttons taskIsRunning={this.state.isRunning} resumeTask={this.handleResumeClick} finishTask={()=>{this.handleFinishClick()}} />
+                </React.Fragment>
+            );
+        } else {
+            content = <div className='active-task__empty'>There is no active task.</div>
+        }
         return (
-            <div className="active-task">
-                <TimeDisplay timestamp={this.state.timestamp} />
-                <TaskInfo meta={this.meta} />
-                <Buttons taskIsRunning={this.state.isRunning} resumeTask={this.handleResumeClick} finishTask={()=>{this.handleFinishClick()}} />
-            </div>
+            <div className="active-task">{ content }</div>
         );
     }
 }
