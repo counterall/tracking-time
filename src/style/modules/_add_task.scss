@@ -23,3 +23,43 @@
     }
 }
 
+.add-task-modal {
+    .modal-content {
+        background-color: $secondary-bg;
+
+        .modal-title {
+            color: $theme;
+            font-size: 1.7rem;
+        }
+
+        .add-task-modal__form{
+            label, input {
+                font-size: 1.5rem;
+            }
+        }
+
+        button.close {
+            color: $primary-fg;
+        }
+
+        .btns {
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: flex-end;
+            padding: 5px 0;
+
+            button {
+                background-color: $secondary-bg;
+                color: $theme;
+                border: none;
+                font-size: 1.7rem;
+                padding: 0;
+
+                &.btns-cancel {
+                    margin-right: 20px;
+                }
+            }
+        }
+    }
+}
+

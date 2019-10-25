@@ -17,9 +17,9 @@ function AddTaskModal(props) {
     };
 
     return (
-        <Modal {...props} className="add-task-modal" centered>
+        <Modal {...props} className="add-task-modal">
             <Modal.Header closeButton>
-            <Modal.Title>Add new task to track</Modal.Title>
+            <Modal.Title>Track new task</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form noValidate validated={validated} onSubmit={handleSubmit} className="add-task-modal__form">
@@ -49,14 +49,14 @@ function AddTaskModal(props) {
                             Please name your task.
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={props.onHide}>
+                    <div className="btns">
+                        <Button className="btns-cancel" onClick={props.onHide}>
                             Cancel
                         </Button>
-                        <Button variant="primary" type="submit">
+                        <Button className="btns-add" type="submit">
                             Add
                         </Button>
-                    </Modal.Footer>
+                    </div>
                 </Form>
             </Modal.Body>
         </Modal>
