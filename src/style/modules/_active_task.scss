@@ -1,6 +1,17 @@
 @import "../var";
 
 .active-task {
+  height: 250px;
+  background-color: $secondary-bg;
+  &--empty {
+    display: flex;
+
+    &__msg {
+      margin: auto;
+      color: $theme;
+      font-size: 2.5rem;
+    }
+  }
   &__time {
     display: flex;
     flex-flow: row nowrap;

@@ -92,7 +92,9 @@ class ActiveTask extends Component {
 
     render() {
         let content;
-        if (this.state.timestamp || this.duration) {
+        let cls = ['active-task'];
+        let activeTaskFound = this.state.timestamp || this.duration;
+        if (activeTaskFound) {
             content = (
                 <React.Fragment>
                     <TimeDisplay timestamp={this.state.timestamp} />
@@ -101,10 +103,12 @@ class ActiveTask extends Component {
                 </React.Fragment>
             );
         } else {
-            content = <div className='active-task__empty'>There is no active task.</div>
+            cls.push("active-task--empty")
+            content = <div className='active-task--empty__msg'>There is no active task.</div>
         }
+        
         return (
-            <div className="active-task">{ content }</div>
+            <div className={cls.join(" ")}>{ content }</div>
         );
     }
 }
