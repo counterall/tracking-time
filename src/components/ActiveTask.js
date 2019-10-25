@@ -3,6 +3,7 @@ import TimeDisplay from "./active_task/TimeDisplay";
 import TaskInfo from "./active_task/TaskInfo";
 import Buttons from "./active_task/Buttons";
 import Crud from "../helpers/crud";
+import "../style/modules/_active_task.scss";
 
 class ActiveTask extends Component {
     constructor(props) {
