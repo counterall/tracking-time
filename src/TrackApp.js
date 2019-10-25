@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import './style/trackapp.scss';
 import ActiveTask from "./components/ActiveTask";
 import AddNewTask from "./components/AddNewTask";
 import Crud from "./helpers/crud";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './style/trackapp.scss';
 
 const basicStructure = {
     task_count: 0,

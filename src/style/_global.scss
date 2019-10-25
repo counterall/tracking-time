@@ -20,8 +20,8 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgba(var(--primary-bg, 0, 0, 0), 1);
-    color: #fff;
+    background-color: rgba(var(--primary-bg, 0, 0, 0), 1) !important;
+    color: #fff !important;
     padding: 10px;
 }
 
