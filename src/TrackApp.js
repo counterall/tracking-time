@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './style/trackapp.scss';
 import ActiveTask from "./components/ActiveTask";
+import AddNewTask from "./components/AddNewTask";
 import Crud from "./helpers/crud";
 
 const basicStructure = {
@@ -27,6 +28,7 @@ class TrackApp extends Component {
 
         return <div className="wrapper">
             <ActiveTask data={this.state.activeTask} isNewTask={this.state.newTaskAdded}/>
+            <AddNewTask handleAddTask={this.handleAddTask} />
         </div>
     }
 }
