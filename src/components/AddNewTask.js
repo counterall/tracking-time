@@ -18,7 +18,7 @@ function AddNewTask(props) {
     return (
         <div className="add-task-wrapper">
             <AddButton openTaskModal={showNewTaskModal} />
-            <AddTaskModal show={openForm} onHide={HideNewTaskModal} />
+            <AddTaskModal show={openForm} onHide={HideNewTaskModal} handleAddTask={props.handleAddTask} />
         </div>
     );
 

@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 
 function AddTaskModal(props) {
     const [validated, setValidated] = useState(false);
+    const {show, onHide, handelAddTask} = {...props};
 
     const handleSubmit = event => {
         const form = event.currentTarget;
@@ -12,12 +13,12 @@ function AddTaskModal(props) {
         event.stopPropagation();
         setValidated(true);
         if (form.checkValidity() === true) {
-            console.log(form);
+            
         }
     };
 
     return (
-        <Modal {...props} className="add-task-modal">
+        <Modal show={show} onHide={onHide} className="add-task-modal">
             <Modal.Header closeButton>
             <Modal.Title>Track new task</Modal.Title>
             </Modal.Header>
@@ -50,7 +51,7 @@ function AddTaskModal(props) {
                         </Form.Control.Feedback>
                     </Form.Group>
                     <div className="btns">
-                        <Button className="btns-cancel" onClick={props.onHide}>
+                        <Button className="btns-cancel" onClick={onHide}>
                             Cancel
                         </Button>
                         <Button className="btns-add" type="submit">
