@@ -25,14 +25,21 @@ class TrackApp extends Component {
         this.handleAddTask = this.handleAddTask.bind(this);
     }
 
-    handleAddTask(task) {
-
+    handleAddTask(newTask) {
+        if (Object.keys(newTask).length) {
+            this.setState({
+                activeTask: {
+                    meta: newTask,
+                    duration: 0
+                }
+            });
+        }
     }
 
     render() {
 
         return <div className="wrapper">
-            <ActiveTask data={this.state.activeTask} />
+            <ActiveTask {...this.state.activeTask} />
             <AddNewTask handleAddTask={this.handleAddTask} />
         </div>
     }

@@ -13,10 +13,8 @@ class ActiveTask extends Component {
             isRunning: false
         };
         this.handleResumeClick = this.handleResumeClick.bind(this);
-        const {duration, meta} = this.props.data;
-        this.duration = duration;
-        this.meta = meta;
-        this.saveActiveTaskDurationBeforePageReload();
+        // this.saveActiveTaskDurationBeforePageReload();
+        Crud.removeActiveTask();
     }
 
     handleResumeClick() {
@@ -69,9 +67,9 @@ class ActiveTask extends Component {
         }
         // no currently active task found
         else {
-            if (typeof this.duration !== 'undefined') {
-                originalTmstp = originalTmstp - this.duration;
-                if (this.duration === 0) {
+            if (typeof this.props.duration !== 'undefined') {
+                originalTmstp = originalTmstp - this.props.duration;
+                if (this.props.duration === 0) {
                     // automatically start ticking if duration of active task is 0, .i.e creating a new active task.
                     this.setState({
                         isRunning: true
@@ -93,12 +91,12 @@ class ActiveTask extends Component {
     render() {
         let content;
         let cls = ['active-task'];
-        let activeTaskFound = this.state.timestamp || this.duration;
-        if (activeTaskFound) {
+        let activeTaskTime = this.state.timestamp > 0 ? this.state.timestamp : this.props.duration;
+        if (activeTaskTime >= 0) {
             content = (
                 <React.Fragment>
-                    <TimeDisplay timestamp={this.state.timestamp} />
-                    <TaskInfo meta={this.meta} />
+                    <TimeDisplay timestamp={activeTaskTime} />
+                    <TaskInfo meta={this.props.meta} />
                     <Buttons taskIsRunning={this.state.isRunning} resumeTask={this.handleResumeClick} finishTask={()=>{this.handleFinishClick()}} />
                 </React.Fragment>
             );
@@ -106,7 +104,7 @@ class ActiveTask extends Component {
             cls.push("active-task--empty")
             content = <div className='active-task--empty__msg'>There is no active task.</div>
         }
-        
+
         return (
             <div className={cls.join(" ")}>{ content }</div>
         );

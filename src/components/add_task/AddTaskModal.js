@@ -5,7 +5,8 @@ import Form from "react-bootstrap/Form";
 
 function AddTaskModal(props) {
     const [validated, setValidated] = useState(false);
-    const {show, onHide, handelAddTask} = {...props};
+    const {show, onHide, handleAddTask} = {...props};
+    const formName = "add-task";
 
     const handleSubmit = event => {
         const form = event.currentTarget;
@@ -13,17 +14,29 @@ function AddTaskModal(props) {
         event.stopPropagation();
         setValidated(true);
         if (form.checkValidity() === true) {
-            
+            const form = document.forms[formName];
+            const [taskTag, taskName] = [...form.elements];
+            const newTask = {
+                tag: taskTag.value,
+                name: taskName.value
+            };
+            hideAndResetForm();
+            handleAddTask(newTask);
         }
     };
 
+    const hideAndResetForm = () => {
+        onHide();
+        setValidated(false);
+    };
+
     return (
-        <Modal show={show} onHide={onHide} className="add-task-modal">
+        <Modal show={show} onHide={hideAndResetForm} className="add-task-modal">
             <Modal.Header closeButton>
             <Modal.Title>Track new task</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form noValidate validated={validated} onSubmit={handleSubmit} className="add-task-modal__form">
+                <Form noValidate validated={validated} onSubmit={handleSubmit} name={formName} className="add-task-modal__form">
                     <Form.Group controlId="task-tag">
                         <Form.Label>Tag</Form.Label>
                         <Form.Control
