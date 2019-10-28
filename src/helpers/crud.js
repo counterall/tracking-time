@@ -6,9 +6,14 @@ function crud() {
 
     const getActiveTask = () => JSON.parse(localStorage.getItem('active_task')) || {};
 
+    const removeActiveTask = () => {
+        localStorage.removeItem('active_task');
+    }
+
     return {
         setActiveTask: setActiveTask,
-        getActiveTask: getActiveTask
+        getActiveTask: getActiveTask,
+        removeActiveTask: removeActiveTask
     }
 }
 
