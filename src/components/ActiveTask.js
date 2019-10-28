@@ -17,8 +17,8 @@ class ActiveTask extends Component {
             }
             content = (
                 <React.Fragment>
-                    <TimeDisplay timestamp={this.props.activeTaskTS} />
                     <TaskInfo meta={taskMeta} />
+                    <TimeDisplay timestamp={this.props.activeTaskTS} />
                     <Buttons taskIsRunning={this.props.activeTaskIsRunning} resumeTask={this.props.handleResumeClick} finishTask={this.props.handleFinishClick} />
                 </React.Fragment>
             );

@@ -1,8 +1,10 @@
 @import "../var";
 
 .active-task {
-  height: 250px;
+  min-height: 250px;
   background-color: $secondary-bg;
+  padding: 15px;
+
   &--empty {
     display: flex;
 
@@ -12,11 +14,28 @@
       font-size: 2.5rem;
     }
   }
+
+  &__info {
+    font-weight: 100;
+
+    .tag{
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+      color: $theme;
+      border-color: $theme;
+    }
+
+    .name{
+      font-size: 2rem;
+    }
+  }
+
   &__time {
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;
-    font-size: 9rem;
+    font-size: 10rem;
+    font-weight: 100;
 
     &__s {
       font-size: 4rem;
