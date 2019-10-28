@@ -66,7 +66,7 @@ class TrackApp extends Component {
         window.onunload = () => {
             if (this.state.activeTaskTS > 0) {
                 const oldActiveTask = Crud.getActiveTask();
-                const newActiveTask = {...oldActiveTask, duration: this.state.activeTaskTS};
+                const newActiveTask = {...oldActiveTask, duration: this.state.activeTaskTS, name: this.state.activeTaskName, tag: this.state.activeTaskTag};
                 Crud.setActiveTask(newActiveTask);
             }
         };
