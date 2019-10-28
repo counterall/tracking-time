@@ -19,14 +19,15 @@ if (localStorage.getItem("task_count") === null) {
 class TrackApp extends Component {
     constructor(props){
         super(props);
-        Crud.removeActiveTask();
+        this.saveActiveTaskDurationBeforePageReload();
+        // Crud.removeActiveTask();
 
-        const {activeTaskTime, activeTaskTag, activeTaskName} = {...Crud.getActiveTask()};
+        const {duration, tag, name} = {...Crud.getActiveTask()};
 
         this.state = {
-            activeTaskTS: typeof activeTaskTime !== "undefined" ? activeTaskTime : 0,
-            activeTaskTag: typeof activeTaskTag !== "undefined" ? activeTaskTag : "",
-            activeTaskName: typeof activeTaskName !== "undefined" ? activeTaskName : "",
+            activeTaskTS: typeof duration !== "undefined" ? duration : 0,
+            activeTaskTag: typeof tag !== "undefined" ? tag : "",
+            activeTaskName: typeof name !== "undefined" ? name : "",
             activeTaskIsRunning: false
         };
 
