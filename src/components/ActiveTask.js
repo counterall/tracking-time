@@ -19,7 +19,7 @@ class ActiveTask extends Component {
                 <React.Fragment>
                     <TaskInfo meta={taskMeta} />
                     <TimeDisplay timestamp={this.props.activeTaskTS} />
-                    <Buttons taskIsRunning={this.props.activeTaskIsRunning} resumeTask={this.props.handleResumeClick} finishTask={this.props.handleFinishClick} />
+                    <Buttons taskIsRunning={this.props.activeTaskIsRunning} resetTask={this.props.handleResetClick} resumeTask={this.props.handleResumeClick} finishTask={this.props.handleFinishClick} />
                 </React.Fragment>
             );
         } else {

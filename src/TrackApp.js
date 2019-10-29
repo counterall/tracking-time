@@ -34,6 +34,7 @@ class TrackApp extends Component {
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleFinishClick = this.handleFinishClick.bind(this);
         this.handleResumeClick = this.handleResumeClick.bind(this);
+        this.handleResetClick = this.handleResetClick.bind(this);
 
     }
 
@@ -58,6 +59,10 @@ class TrackApp extends Component {
     }
 
     handleFinishClick() {
+
+    }
+
+    handleResetClick() {
 
     }
 
@@ -102,7 +107,7 @@ class TrackApp extends Component {
     render() {
 
         return <div className="wrapper">
-            <ActiveTask {...this.state} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
+            <ActiveTask {...this.state} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
             <AddNewTask handleAddTask={this.handleAddTask} />
         </div>
     }
