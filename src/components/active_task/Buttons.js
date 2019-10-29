@@ -6,7 +6,7 @@ function Buttons(props) {
 
     return (
         <div className="active-task__btns">
-            <button className='active-task__btn active-task__btn--reset' onClick={resetTask}></button>
+            <button className='active-task__btn active-task__btn--reset' disabled={ taskIsRunning ? "disabled" : ""} onClick={resetTask}></button>
             <button className={ taskIsRunning ? "active-task__btn active-task__btn--pause" : "active-task__btn active-task__btn--resume"} onClick={resumeTask}></button>
             <button className='active-task__btn active-task__btn--finish' onClick={finishTask}></button>
         </div>
