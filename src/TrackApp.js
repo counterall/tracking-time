@@ -4,6 +4,7 @@ import AddNewTask from "./components/AddNewTask";
 import Crud from "./helpers/crud";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/trackapp.scss';
+import crud from './helpers/crud';
 
 const basicStructure = {
     task_count: 0,
@@ -19,8 +20,7 @@ if (localStorage.getItem("task_count") === null) {
 class TrackApp extends Component {
     constructor(props){
         super(props);
-        this.saveActiveTaskDurationBeforePageReload();
-        // Crud.removeActiveTask();
+        this.saveStateToLocalStorageBeforePageReload();
 
         const {duration, tag, name} = {...Crud.getActiveTask()};
 
@@ -29,7 +29,7 @@ class TrackApp extends Component {
             activeTaskTag: typeof tag !== "undefined" ? tag : "",
             activeTaskName: typeof name !== "undefined" ? name : "",
             activeTaskIsRunning: false,
-            taskList: []
+            taskList: crud.getTaskListOfToday()
         };
 
         this.handleAddTask = this.handleAddTask.bind(this);
@@ -85,8 +85,15 @@ class TrackApp extends Component {
         });
     }
 
+    saveStateToLocalStorageBeforePageReload() {
+        window.onunload = () => {
+            this._saveActiveTaskDuration();
+            this._saveTaskList();
+        }
+    }
+
     // if active task is still running when page is refreshed, save data of active task to localStorage
-    saveActiveTaskDurationBeforePageReload() {
+    _saveActiveTaskDuration() {
         window.onunload = () => {
             if (this.state.activeTaskTS >= 0) {
                 const oldActiveTask = Crud.getActiveTask();
@@ -94,6 +101,12 @@ class TrackApp extends Component {
                 Crud.setActiveTask(newActiveTask);
             }
         };
+    }
+
+    _saveTaskList() {
+        if (this.state.taskList.length) {
+            Crud.updateTaskListofToday(this.state.taskList);
+        }
     }
 
     componentDidMount() {
