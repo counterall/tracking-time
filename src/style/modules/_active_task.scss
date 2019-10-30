@@ -99,7 +99,27 @@
     }
 
     &--reset {
-      
+      border-bottom-color: transparent !important;
+      transform: rotate(35deg);
+
+      &::after {
+        border-style: solid;
+        border-color: transparent;
+        border-top-color: white;
+        background-color: transparent;
+        border-width: 1rem 0.6rem 0 0.6rem;
+        bottom: -3px;
+        left: -1px;
+        transform: translate(0, 0) rotate(75deg);
+      }
+
+      &:disabled {
+        border-color: gray;
+
+        &::after {
+          border-top-color: gray;
+        }
+      }
     }
 
     &--finish::after {
