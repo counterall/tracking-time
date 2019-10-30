@@ -4,6 +4,7 @@
   min-height: 250px;
   background-color: $secondary-bg;
   padding: 15px;
+  margin-bottom: 50px;
 
   &--empty {
     display: flex;
@@ -34,7 +35,7 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;
-    font-size: 9.3rem;
+    font-size: 9.0rem;
     line-height: 1.2;
     font-weight: 200;
 
