@@ -28,7 +28,8 @@ class TrackApp extends Component {
             activeTaskTS: typeof duration !== "undefined" ? duration : 0,
             activeTaskTag: typeof tag !== "undefined" ? tag : "",
             activeTaskName: typeof name !== "undefined" ? name : "",
-            activeTaskIsRunning: false
+            activeTaskIsRunning: false,
+            taskList: []
         };
 
         this.handleAddTask = this.handleAddTask.bind(this);
@@ -59,7 +60,23 @@ class TrackApp extends Component {
     }
 
     handleFinishClick() {
+        this.setState((state) => {
+            const finishedTask = {
+                tag: state.activeTaskTag,
+                name: state.activeTaskName,
+                timestamp: state.activeTaskTS
+            };
+            const taskList = [...state.taskList];
+            taskList.push(finishedTask);
 
+            return {
+                activeTaskTS: 0,
+                activeTaskTag: "",
+                activeTaskName: "",
+                activeTaskIsRunning: false,
+                taskList: taskList
+            };
+        }, Crud.removeActiveTask());
     }
 
     handleResetClick() {
