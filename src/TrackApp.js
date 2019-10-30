@@ -63,13 +63,15 @@ class TrackApp extends Component {
     }
 
     handleResetClick() {
-
+        this.setState({
+            activeTaskTS: 0
+        });
     }
 
     // if active task is still running when page is refreshed, save data of active task to localStorage
     saveActiveTaskDurationBeforePageReload() {
         window.onunload = () => {
-            if (this.state.activeTaskTS > 0) {
+            if (this.state.activeTaskTS >= 0) {
                 const oldActiveTask = Crud.getActiveTask();
                 const newActiveTask = {...oldActiveTask, duration: this.state.activeTaskTS, name: this.state.activeTaskName, tag: this.state.activeTaskTag};
                 Crud.setActiveTask(newActiveTask);
