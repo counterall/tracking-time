@@ -68,7 +68,7 @@ class TrackApp extends Component {
                 timestamp: state.activeTaskTS
             };
             const taskList = [...state.taskList];
-            taskList.push(finishedTask);
+            taskList.unshift(finishedTask);
 
             return {
                 activeTaskTS: 0,
