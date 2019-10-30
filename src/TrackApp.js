@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ActiveTask from "./components/ActiveTask";
 import AddNewTask from "./components/AddNewTask";
+import TaskList from "./components/TaskList";
 import Crud from "./helpers/crud";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/trackapp.scss';
@@ -141,6 +142,7 @@ class TrackApp extends Component {
         return <div className="wrapper">
             <ActiveTask {...this.state} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
             <AddNewTask handleAddTask={this.handleAddTask} />
+            <TaskList taskList={this.state.taskList} />
         </div>
     }
 }
