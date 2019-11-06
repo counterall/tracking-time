@@ -3,41 +3,31 @@ import ActiveTask from "./components/ActiveTask";
 import AddNewTask from "./components/AddNewTask";
 import TaskList from "./components/TaskList";
 import Crud from "./helpers/crud";
+import idbCRUD from "./helpers/idbCRUD";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/trackapp.scss';
-import crud from './helpers/crud';
-
-const basicStructure = {
-    task_count: 0,
-    active_task: JSON.stringify({})
-}
-
-if (localStorage.getItem("task_count") === null) {
-    Object.keys(basicStructure).forEach((k) => {
-        localStorage.setItem(k, basicStructure[k])
-    });
-}
 
 class TrackApp extends Component {
     constructor(props){
         super(props);
-        this.saveStateToLocalStorageBeforePageReload();
+        // this.saveStateToLocalStorageBeforePageReload();
+        console.log(props);
 
-        const {duration, tag, name} = {...Crud.getActiveTask()};
+        const {duration, tag, name} = props.activeTask;
 
         this.state = {
             activeTaskTS: typeof duration !== "undefined" ? duration : 0,
             activeTaskTag: typeof tag !== "undefined" ? tag : "",
             activeTaskName: typeof name !== "undefined" ? name : "",
+            activeProjectID: 1,
             activeTaskIsRunning: false,
-            taskList: crud.getTaskListOfToday()
+            taskList: props.taskList
         };
 
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleFinishClick = this.handleFinishClick.bind(this);
         this.handleResumeClick = this.handleResumeClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
-
     }
 
     handleAddTask(newTask) {
@@ -111,7 +101,7 @@ class TrackApp extends Component {
     }
 
     componentDidMount() {
-        this.initialiseDisplay();
+        // this.initialiseDisplay();
     }
 
     componentWillUnmount() {
@@ -140,9 +130,9 @@ class TrackApp extends Component {
     render() {
 
         return <div className="wrapper">
-            <ActiveTask {...this.state} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
+            {/* <ActiveTask {...this.state} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
             <AddNewTask handleAddTask={this.handleAddTask} />
-            <TaskList taskList={this.state.taskList} />
+            <TaskList taskList={this.state.taskList} /> */}
         </div>
     }
 }
