@@ -63,23 +63,20 @@ class TrackApp extends Component {
     }
 
     handleFinishClick() {
-        this.setState((state) => {
-            const finishedTask = {
-                tag: state.activeTaskTag,
-                name: state.activeTaskName,
-                timestamp: state.activeTaskTS
-            };
-            const taskList = [...state.taskList];
-            taskList.unshift(finishedTask);
-
-            return {
-                activeTaskTS: 0,
-                activeTaskTag: "",
-                activeTaskName: "",
-                activeTaskIsRunning: false,
-                taskList: taskList
-            };
-        }, Crud.removeActiveTask());
+        const activeTaskID = this.state.activeTask.id;
+        idbCRUD.updateTask(activeTaskID, {duration: this.state.activeTask.duration, active: 0}).then(updated => {
+            if (updated) {
+                idbCRUD.getTaskListOfToday().then(list => {
+                    this.setState({
+                        taskList: list,
+                        activeTask: {},
+                        activeTaskIsRunning: false
+                    });
+                })
+            } else {
+                console.log("Failed to set active task inactive in IDB.");
+            }
+        });
     }
 
     handleResetClick() {
@@ -138,8 +135,8 @@ class TrackApp extends Component {
         console.log('rendered once!');
         return <div className="wrapper">
             <ActiveTask {...this.state.activeTask} isRunning={this.state.activeTaskIsRunning} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
-            {/* <AddNewTask handleAddTask={this.handleAddTask} />
-            <TaskList taskList={this.state.taskList} /> */}
+            {/* <AddNewTask handleAddTask={this.handleAddTask} /> */}
+            <TaskList taskList={this.state.taskList} />
         </div>
     }
 }
