@@ -11,23 +11,35 @@ class TrackApp extends Component {
     constructor(props){
         super(props);
         // this.saveStateToLocalStorageBeforePageReload();
-        console.log(props);
-
-        const {duration, tag, name} = props.activeTask;
-
         this.state = {
-            activeTaskTS: typeof duration !== "undefined" ? duration : 0,
-            activeTaskTag: typeof tag !== "undefined" ? tag : "",
-            activeTaskName: typeof name !== "undefined" ? name : "",
-            activeProjectID: 1,
+            activeTask: {},
             activeTaskIsRunning: false,
-            taskList: props.taskList
+            activeProject: {},
+            taskList: []
         };
 
         this.handleAddTask = this.handleAddTask.bind(this);
         this.handleFinishClick = this.handleFinishClick.bind(this);
         this.handleResumeClick = this.handleResumeClick.bind(this);
         this.handleResetClick = this.handleResetClick.bind(this);
+
+        this.initData().then(data => {
+            console.log("initial data is reseting state!");
+            this.setState({
+                ...data
+            });
+        });
+    }
+
+    async initData() {
+        const data = await Promise.all([idbCRUD.getActiveTask(),idbCRUD.getActiveProject(), idbCRUD.getTaskListOfToday()]);
+        console.log("initial data fetched from IDB!");
+
+        return {
+            activeTask: data[0],
+            activeProject: data[1],
+            taskList: data[2]
+        };
     }
 
     handleAddTask(newTask) {
@@ -85,13 +97,11 @@ class TrackApp extends Component {
 
     // if active task is still running when page is refreshed, save data of active task to localStorage
     _saveActiveTaskDuration() {
-        window.onunload = () => {
-            if (this.state.activeTaskTS >= 0) {
-                const oldActiveTask = Crud.getActiveTask();
-                const newActiveTask = {...oldActiveTask, duration: this.state.activeTaskTS, name: this.state.activeTaskName, tag: this.state.activeTaskTag};
-                Crud.setActiveTask(newActiveTask);
-            }
-        };
+        if (this.state.activeTaskTS >= 0) {
+            const oldActiveTask = Crud.getActiveTask();
+            const newActiveTask = {...oldActiveTask, duration: this.state.activeTaskTS, name: this.state.activeTaskName, tag: this.state.activeTaskTag};
+            Crud.setActiveTask(newActiveTask);
+        }
     }
 
     _saveTaskList() {
@@ -110,28 +120,25 @@ class TrackApp extends Component {
 
     initialiseDisplay() {
         clearInterval(this.timer);
-        let originalTmstp = Math.floor(Date.now() / 1000);
-        originalTmstp = originalTmstp - this.state.activeTaskTS;
+        let originalActiveTaskDuration = "duration" in this.state.activeTask ? this.state.activeTask.duration : 0;
+        const updateActiveTaskDurationState = state => {return {activeTask: {...state.activeTask, duration: originalActiveTaskDuration}}};
 
         if (this.state.activeTaskIsRunning) {
             this.timer = setInterval(() => {
-                this.setState({
-                    activeTaskTS: Math.floor(Date.now() / 1000) - originalTmstp
-                });
+                this.setState(updateActiveTaskDurationState);
+                originalActiveTaskDuration++;
             }, 1000);
         } else {
-            this.setState({
-                activeTaskTS: Math.floor(Date.now() / 1000) - originalTmstp
-            });
+            this.setState(updateActiveTaskDurationState);
         }
 
     }
 
     render() {
-
+        console.log('rendered once!');
         return <div className="wrapper">
-            {/* <ActiveTask {...this.state} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
-            <AddNewTask handleAddTask={this.handleAddTask} />
+            <ActiveTask {...this.state.activeTask} isRunning={this.state.activeTaskIsRunning} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
+            {/* <AddNewTask handleAddTask={this.handleAddTask} />
             <TaskList taskList={this.state.taskList} /> */}
         </div>
     }

@@ -10,16 +10,16 @@ class ActiveTask extends Component {
         let content;
         let cls = ['active-task'];
 
-        if (this.props.activeTaskTag) {
+        if (typeof this.props.duration !== 'undefined') {
             const taskMeta = {
-                tag: this.props.activeTaskTag,
-                name: this.props.activeTaskName
+                tags: this.props.tags,
+                name: this.props.name
             }
             content = (
                 <React.Fragment>
                     <TaskInfo meta={taskMeta} />
-                    <TimeDisplay timestamp={this.props.activeTaskTS} />
-                    <Buttons taskIsRunning={this.props.activeTaskIsRunning} resetTask={this.props.handleResetClick} resumeTask={this.props.handleResumeClick} finishTask={this.props.handleFinishClick} />
+                    <TimeDisplay timestamp={this.props.duration} />
+                    <Buttons taskIsRunning={this.props.isRunning} resetTask={this.props.handleResetClick} resumeTask={this.props.handleResumeClick} finishTask={this.props.handleFinishClick} />
                 </React.Fragment>
             );
         } else {

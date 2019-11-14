@@ -19,11 +19,17 @@
   &__info {
     font-weight: 100;
 
-    .tag{
-      font-size: 1.5rem;
+    .tags {
       margin-bottom: 10px;
-      color: $theme;
-      border-color: $theme;
+      .tag{
+        font-size: 1.5rem;
+        color: $theme;
+        border-color: $theme;
+
+        &:not(:last-of-type) {
+          margin-right: 10px;
+        }
+      }
     }
 
     .name{
