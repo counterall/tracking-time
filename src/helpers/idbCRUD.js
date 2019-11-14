@@ -13,7 +13,9 @@ function idbCRUD() {
         if (reset) {
             return idb.delete().then(()=>{
                 idb.version(1).stores(idbSchema);
-                return idb.open();
+                return idb.open().then(()=>{
+                    idb.tasks.add({project_id: 1, date: "2019-11-12", tags: ['YA', 'NBA'], name: "VJ-1012: Warehouse Inventory Check", duration: 11333, active: 1});
+                });
             });
         } else {
             return Promise.resolve(idb.version(1).stores(idbSchema));
