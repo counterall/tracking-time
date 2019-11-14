@@ -37,7 +37,7 @@ function idbCRUD() {
     const getTaskListOfToday = async () => {
         const activeProject = await getActiveProject();
         const today = getTodayTag();
-        return activeProject.id ? await idb.tasks.where({date: today, project_id: activeProject.id}).toArray() : [];
+        return activeProject.id ? await idb.tasks.where({date: today, project_id: activeProject.id, active: 0}).toArray() : [];
     };
 
     const createProject = projectName => {
