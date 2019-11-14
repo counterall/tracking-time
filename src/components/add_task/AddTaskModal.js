@@ -17,7 +17,7 @@ function AddTaskModal(props) {
             const form = document.forms[formName];
             const [taskTag, taskName] = [...form.elements];
             const newTask = {
-                tag: taskTag.value,
+                tags: taskTag.value.split(',').filter((tag) => tag.trim()).map(tag => tag.trim()),
                 name: taskName.value
             };
             hideAndResetForm();

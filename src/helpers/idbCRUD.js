@@ -24,7 +24,7 @@ function idbCRUD() {
         }
     };
 
-    const createTask = taskObj => idb.tasks.add({...taskObj, date: getTodayTag()});
+    const createTask = taskObj => idb.tasks.add({...taskObj, active: 1, date: getTodayTag()});
 
     const updateTask = (id, updateObj) => idb.tasks.update(id, updateObj);
 

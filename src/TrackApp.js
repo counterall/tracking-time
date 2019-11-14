@@ -44,15 +44,23 @@ class TrackApp extends Component {
 
     handleAddTask(newTask) {
         if (Object.keys(newTask).length) {
-            const newState = {
-                activeTaskTag: newTask.tag,
-                activeTaskName: newTask.name,
-                activeTaskTS: 0,
-                activeTaskIsRunning: true
-            };
-            this.setState(() => {
-                return newState
-            }, this.initialiseDisplay);
+            // if an active task still exists, first simulate the task finishing operation
+            if ('id' in this.state.activeTask) {
+                const activeTaskID = this.state.activeTask.id;
+                idbCRUD.updateTask(activeTaskID, {duration: this.state.activeTask.duration, active: 0}).then(updated => {
+                    if (updated) {
+                        idbCRUD.getTaskListOfToday().then(list => {
+                            this._addNewTask(newTask, list);
+                        }).catch(e => {
+                            console.log("Failed to fetch task list: " + e);
+                        });
+                    } else {
+                        console.log("Failed to set active task inactive in IDB.");
+                    }
+                });
+            } else {
+                this._addNewTask(newTask);
+            }
         }
     }
 
@@ -63,6 +71,7 @@ class TrackApp extends Component {
     }
 
     handleFinishClick() {
+        clearInterval(this.timer);
         const activeTaskID = this.state.activeTask.id;
         idbCRUD.updateTask(activeTaskID, {duration: this.state.activeTask.duration, active: 0}).then(updated => {
             if (updated) {
@@ -107,6 +116,30 @@ class TrackApp extends Component {
         }
     }
 
+    _addNewTask(newTask, list = []) {
+        clearInterval(this.timer);
+        // Now create the new task
+        idbCRUD.createTask({
+            project_id: this.state.activeProject.id,
+            tags: newTask.tags,
+            name: newTask.name,
+            duration: 0
+        }).then((taskId) => {
+            return idbCRUD.getActiveTask()
+        }).then(activeTask => {
+            const newState = {
+                activeTask: activeTask,
+                activeTaskIsRunning: false
+            };
+            if (list.length) {
+                newState.taskList = list;
+            }
+            this.setState(newState);
+        }).catch(e => {
+            console.log("Failed to create new task: " + e);
+        });
+    }
+
     componentDidMount() {
         // this.initialiseDisplay();
     }
@@ -124,18 +157,18 @@ class TrackApp extends Component {
             this.timer = setInterval(() => {
                 originalActiveTaskDuration++;
                 this.setState(updateActiveTaskDurationState);
+                console.log("timer is on!");
             }, 1000);
         } else {
             this.setState(updateActiveTaskDurationState);
         }
-
     }
 
     render() {
         console.log('rendered once!');
         return <div className="wrapper">
             <ActiveTask {...this.state.activeTask} isRunning={this.state.activeTaskIsRunning} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
-            {/* <AddNewTask handleAddTask={this.handleAddTask} /> */}
+            <AddNewTask handleAddTask={this.handleAddTask} />
             <TaskList taskList={this.state.taskList} />
         </div>
     }
