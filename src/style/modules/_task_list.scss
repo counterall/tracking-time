@@ -25,12 +25,19 @@
             }
         }
 
-        .item-tag {
-            border: 1px solid $theme;
-            border-radius: 5px;
-            padding: 2px 5px;
-            display: inline-block;
+        .item-tags {
+            .item-tag {
+                border: 1px solid $theme;
+                border-radius: 5px;
+                padding: 2px 5px;
+                display: inline-block;
+
+                &:not(:last-of-type) {
+                    margin-right: 5px;
+                }
+            }
         }
+
     }
 
 }
