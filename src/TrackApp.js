@@ -89,9 +89,9 @@ class TrackApp extends Component {
     }
 
     handleResetClick() {
-        this.setState({
-            activeTaskTS: 0
-        });
+        this.setState((state)=>{
+            return {activeTask: {...state.activeTask, duration: 0}}
+        }, this.initialiseDisplay());
     }
 
     saveStateToLocalStorageBeforePageReload() {
