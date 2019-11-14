@@ -13,9 +13,13 @@ function TaskList(props) {
                     <div key={i} className="task-history__item">
                         <div className="item-info">
                             <div className="item-info__name">{ task.name }</div>
-                            <TaskDuration timestamp={task.timestamp} />
+                            <TaskDuration timestamp={task.duration} />
                         </div>
-                        <div className="item-tag">{ task.tag }</div>
+                        <div className="item-tags">
+                        {
+                            task.tags.map((tag, i) => <div key={i} className="item-tag">{tag}</div>)
+                        }
+                        </div>
                     </div>
                 );
             })
