@@ -39,8 +39,13 @@ function idbCRUD() {
     };
 
     const createProject = projectName => {
-        idb.projects.where({name: projectName}).count().then(c => {
-            c === 0 ? idb.projects.add({name: projectName}) : console.log(`Project '${projectName}' already exists`);
+        return idb.projects.where({name: projectName}).count().then(c => {
+            if(c === 0) {
+                return idb.projects.add({name: projectName, active: 1});
+            } else {
+                console.log(`Project '${projectName}' already exists`);
+                return getActiveProject().then(activeProject => Promise.resolve(activeProject.id));
+            }
         }).catch((e) => {
             console.log("Failed to create new project: " + e);
         });
