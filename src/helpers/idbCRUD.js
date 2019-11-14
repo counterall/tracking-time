@@ -26,15 +26,14 @@ function idbCRUD() {
 
     const setActiveTask = activeTask => idb.tasks.put({...activeTask, active: 1, date: getTodayTag()});
 
-    const getActiveTask = async () => await idb.tasks.where({active: 1}).first();
+    const getActiveTask = async () => await idb.tasks.where({active: 1}).first() || {};
 
-    const getActiveProject = async () => await idb.projects.where({active: 1}).first();
+    const getActiveProject = async () => await idb.projects.where({active: 1}).first() || {};
 
-    const getTaskListOfToday = () => {
+    const getTaskListOfToday = async () => {
+        const activeProject = await getActiveProject();
         const today = getTodayTag();
-        const activeProject = getActiveProject();
-        const projectId = typeof activeProject !== "undefined" ? activeProject.id : 1;
-        return idb.tasks.where({date: today, project_id: projectId}).toArray();
+        return activeProject.id ? await idb.tasks.where({date: today, project_id: activeProject.id}).toArray() : [];
     };
 
     const createProject = projectName => {
