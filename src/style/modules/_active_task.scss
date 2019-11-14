@@ -41,9 +41,10 @@
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;
-    font-size: 9.0rem;
+    font-size: 8.0rem;
     line-height: 1.2;
     font-weight: 200;
+    justify-content: center;
 
     &__s {
       font-size: 4rem;
