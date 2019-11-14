@@ -125,8 +125,8 @@ class TrackApp extends Component {
 
         if (this.state.activeTaskIsRunning) {
             this.timer = setInterval(() => {
-                this.setState(updateActiveTaskDurationState);
                 originalActiveTaskDuration++;
+                this.setState(updateActiveTaskDurationState);
             }, 1000);
         } else {
             this.setState(updateActiveTaskDurationState);
