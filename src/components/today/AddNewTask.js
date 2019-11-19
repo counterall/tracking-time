@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddButton from "./add_task/AddButton";
 import AddTaskModal from "./add_task/AddTaskModal";
-import "../../style/modules/_add_task.scss";
+import "../../style/modules/today/_add_task.scss";
 
 function AddNewTask(props) {
 

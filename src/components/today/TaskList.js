@@ -1,6 +1,6 @@
 import React from 'react';
 import TaskDuration from "./task_list/TaskDuration";
-import "../../style/modules/_task_list.scss";
+import "../../style/modules/today/_task_list.scss";
 
 function TaskList(props) {
     const { taskList } = props;

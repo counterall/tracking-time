@@ -1,4 +1,4 @@
-@import "../var";
+@import "../../var";
 
 .add-task-wrapper {
     .add-btn {
@@ -16,7 +16,7 @@
             display: inline-block;
             height: 100%;
             width: 100%;
-            background-image: url("../../images/add.svg");
+            background-image: url("../../../images/add.svg");
             background-repeat: no-repeat;
             background-size: contain;
         }
