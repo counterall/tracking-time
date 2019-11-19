@@ -1,0 +1,16 @@
+.menu-view {
+    &__user {
+        .avatar {
+            height: 50px;
+            width: 50px;
+            border-radius: 50%;
+            background-image: url("../../../images/avatar.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .greeting {
+            font-style: italic;
+        }
+    }
+}
