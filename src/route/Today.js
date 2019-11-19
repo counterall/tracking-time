@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import ActiveTask from "../components/ActiveTask";
-import AddNewTask from "../components/AddNewTask";
-import TaskList from "../components/TaskList";
+import ActiveTask from "../components/today/ActiveTask";
+import AddNewTask from "../components/today/AddNewTask";
+import TaskList from "../components/today/TaskList";
 import Crud from "../helpers/crud";
 import idbCRUD from "../helpers/idbCRUD";
 

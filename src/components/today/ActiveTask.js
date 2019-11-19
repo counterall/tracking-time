@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TimeDisplay from "./active_task/TimeDisplay";
 import TaskInfo from "./active_task/TaskInfo";
 import Buttons from "./active_task/Buttons";
-import "../style/modules/_active_task.scss";
+import "../../style/modules/_active_task.scss";
 
 class ActiveTask extends Component {
 
