@@ -1,12 +1,21 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import User from "../components/menu/User";
+import Separator from "../components/menu/Separator";
+import Main from "../components/menu/Main";
+import Avatar from "../images/avatar.png";
 
 
 function Menu(props) {
+    const user = {
+        name: "Kan",
+        avatar: Avatar
+    }
 
     return (
         <div className="menu-view">
-            <Link to="/today">Today</Link>
+            <User {...user} />
+            <Separator />
+            <Main />
         </div>
     );
 }
