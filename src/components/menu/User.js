@@ -5,7 +5,6 @@ function User(props) {
     const avatarInlineStyle = {
         backgroundImage: 'url:(' + props.avatar + ')'
     };
-    console.log(avatarInlineStyle);
 
     return (
         <div className="menu-view__user">
