@@ -1,0 +1,12 @@
+.menu-view {
+    &__projects {
+        display: flex;
+        flex-flow: column nowrap;
+
+        & > a {
+            color: #fff;
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+        }
+    }
+}

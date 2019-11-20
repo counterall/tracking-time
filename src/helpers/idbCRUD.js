@@ -32,8 +32,6 @@ function idbCRUD() {
 
     const getActiveTask = async () => await idb.tasks.where({active: 1}).first() || {};
 
-    const getActiveProject = async () => await idb.projects.where({active: 1}).first() || {};
-
     const getTaskListOfToday = async () => {
         const activeProject = await getActiveProject();
         const today = getTodayTag();
@@ -43,7 +41,7 @@ function idbCRUD() {
     const createProject = projectName => {
         return idb.projects.where({name: projectName}).count().then(c => {
             if(c === 0) {
-                return idb.projects.add({name: projectName, active: 1});
+                return idb.projects.add({name: projectName, active: 1, created_at: getTodayTag()});
             } else {
                 console.log(`Project '${projectName}' already exists`);
                 return getActiveProject().then(activeProject => Promise.resolve(activeProject.id));
@@ -52,6 +50,10 @@ function idbCRUD() {
             console.log("Failed to create new project: " + e);
         });
     }
+
+    const getActiveProject = async () => await idb.projects.where({active: 1}).first() || {};
+
+    const getProjectList = () => idb.projects.toCollection().toArray();
 
     const getTodayTag = () => {
         const today = new Date();
@@ -69,7 +71,8 @@ function idbCRUD() {
         getActiveTask: getActiveTask,
         getTaskListOfToday: getTaskListOfToday,
         createProject: createProject,
-        getActiveProject: getActiveProject
+        getActiveProject: getActiveProject,
+        getProjectList: getProjectList
     }
 
 }
