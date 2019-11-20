@@ -5,6 +5,7 @@ import Separator from "../components/menu/Separator";
 import Main from "../components/menu/Main";
 import Avatar from "../images/avatar.png";
 import Projects from "../components/menu/Projects";
+import AddButton from "../components/ui/AddButton";
 
 
 
@@ -35,6 +36,7 @@ class Menu extends PureComponent {
                 <Main />
                 <Separator />
                 <Projects list={this.state.projects} />
+                <AddButton />
             </div>
         );
     }
