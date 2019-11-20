@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ActiveTask from "../components/today/ActiveTask";
 import AddNewTask from "../components/today/AddNewTask";
 import TaskList from "../components/today/TaskList";
+import Header from "../components/ui/Header";
 import Crud from "../helpers/crud";
 import idbCRUD from "../helpers/idbCRUD";
 
@@ -165,6 +166,7 @@ class Today extends Component {
     render() {
         console.log('rendered once!');
         return <div className="today-view">
+            <Header previous="/" txt="Home" />
             <ActiveTask {...this.state.activeTask} isRunning={this.state.activeTaskIsRunning} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
             <AddNewTask handleAddTask={this.handleAddTask} />
             <TaskList taskList={this.state.taskList} />
