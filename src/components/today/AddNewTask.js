@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AddButton from "./add_task/AddButton";
+import AddButton from "../ui/AddButton";
 import AddTaskModal from "./add_task/AddTaskModal";
 import "../../style/modules/today/_add_task.scss";
 
@@ -17,7 +17,7 @@ function AddNewTask(props) {
 
     return (
         <div className="add-task-wrapper">
-            <AddButton openTaskModal={showNewTaskModal} />
+            <AddButton handleClick={showNewTaskModal} />
             <AddTaskModal show={openForm} onHide={HideNewTaskModal} handleAddTask={props.handleAddTask} />
         </div>
     );
