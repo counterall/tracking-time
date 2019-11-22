@@ -3,6 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Today from "./route/Today";
 import Menu from "./route/Menu";
 import Project from "./route/Project";
+import AddItem from "./route/AddItem";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style/trackapp.scss';
 
@@ -15,6 +16,7 @@ function TrackApp() {
         </Route>
 
         <Route path="/project/:id" component={ Project } />
+        <Route path="/add/:type" component={ AddItem } />
 
         <Route exact path="/">
           <Menu />
