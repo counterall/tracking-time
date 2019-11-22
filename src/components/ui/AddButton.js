@@ -7,7 +7,7 @@ function AddButton(props) {
     console.log(history);
 
     const handleClick = () => {
-        history.push(`/add/${props.type}`, props.state);
+        history.push(`/add/${props.type}`, props.pushState);
     }
 
     return (

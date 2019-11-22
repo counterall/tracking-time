@@ -6,7 +6,7 @@ import Header from "../components/ui/Header";
 function AddItem(props) {
 
     const history = useHistory();
-    const {previous, previousName, action} = history.location.state;
+    const {previous, previousName, action} = props.location.state;
     console.log(history, props.match);
 
     const itemType = props.match.params.type;

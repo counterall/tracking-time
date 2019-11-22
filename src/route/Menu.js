@@ -40,7 +40,7 @@ class Menu extends PureComponent {
                 <Main />
                 <Separator />
                 <Projects list={this.state.projects} />
-                <AddButton type="project" state={
+                <AddButton type="project" pushState={
                     {
                         previous: "/",
                         previousName: "Home",
