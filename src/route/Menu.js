@@ -28,6 +28,10 @@ class Menu extends PureComponent {
         });
     }
 
+    handleAddProject() {
+        console.log("project added!");
+    }
+
     render() {
         return (
             <div className="menu-view">
@@ -36,7 +40,13 @@ class Menu extends PureComponent {
                 <Main />
                 <Separator />
                 <Projects list={this.state.projects} />
-                <AddButton />
+                <AddButton type="project" state={
+                    {
+                        previous: "/",
+                        previousName: "Home",
+                        action: "addProject"
+                    }
+                } />
             </div>
         );
     }

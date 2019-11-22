@@ -1,19 +1,22 @@
 .header {
-    height: 30px;
+    height: 40px;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left:0;
+    padding: 10px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    color: var(--theme);
+    font-size: 1.3rem;
 
     &__previous{
-        height: 40px;
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left:0;
-        padding: 10px;
         display: flex;
         flex-flow: row nowrap;
         color: var(--theme);
 
         .arrow {
-            display: inline-block;
             border: 1px solid var(--theme);
             border-right-style: none;
             border-bottom-style: none;
@@ -24,8 +27,5 @@
             top: 2px;
         }
 
-        .name {
-            font-size: 1.3rem;
-        }
     }
 }

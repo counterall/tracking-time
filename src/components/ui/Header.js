@@ -1,8 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../../style/modules/ui/_header.scss";
 
 function Header(props) {
+    const history = useHistory();
+    const action = props.action || false;
+
+    const confirmBtnStyle = {
+        display: action ? "block" : "none"
+    }
+
+    const handleAction = () => {
+        if (action) {
+            console.log("Change state: " + action);
+            history.push(props.previous);
+        }
+    };
 
     return (
         <div className="header">
@@ -10,6 +23,7 @@ function Header(props) {
                 <div className="arrow"></div>
                 <div className='name'>{props.txt}</div>
             </Link>
+            <div className="header__confirm" onClick={handleAction} style={confirmBtnStyle}>Done</div>
         </div>
     );
 
