@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter } from "react-router-dom";
-import './style/index.scss';
+import { Provider } from 'react-redux';
+import TrackApp from "./route";
+import Store from "./store";
 import idbCRUD from "./helpers/idbCRUD";
-import TrackApp from './TrackApp';
 import * as serviceWorker from './serviceWorker';
 
-idbCRUD.init(true).then(() => {
-    ReactDOM.render(
-    <BrowserRouter>
-        <TrackApp />
-    </BrowserRouter>, document.getElementById('root'));
+class RootApp extends Component {
+    render() {
+        return (
+            <Provider store={ Store }>
+                <TrackApp />
+            </Provider>
+        );
+    }
+}
+
+idbCRUD.init().then(() => {
+    ReactDOM.render(<RootApp />, document.getElementById('root'));
 }).catch((e) => {
     console.log("Failed to initialize indexedDB used by this app: " + e);
 });

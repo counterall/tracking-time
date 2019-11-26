@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import ActiveTask from "../components/today/ActiveTask";
-import AddNewTask from "../components/today/AddNewTask";
-import TaskList from "../components/today/TaskList";
-import Header from "../components/ui/Header";
-import Crud from "../helpers/crud";
-import idbCRUD from "../helpers/idbCRUD";
+import ActiveTask from "../../components/Today/ActiveTask";
+import AddNewTask from "../../components/Today/AddNewTask";
+import TaskList from "../../components/Today/TaskList";
+import Header from "../../components/ui/Header";
+import Crud from "../../helpers/crud";
+import idbCRUD from "../../helpers/idbCRUD";
 
 class Today extends Component {
     constructor(props){
@@ -90,7 +90,7 @@ class Today extends Component {
     handleResetClick() {
         this.setState((state)=>{
             return {activeTask: {...state.activeTask, duration: 0}}
-        }, this.initialiseDisplay());
+        }, this.initialiseDisplay);
     }
 
     saveStateToLocalStorageBeforePageReload() {
@@ -139,37 +139,18 @@ class Today extends Component {
         });
     }
 
-    componentDidMount() {
-        // this.initialiseDisplay();
-    }
 
     componentWillUnmount() {
         clearInterval(this.timer);
-    }
-
-    initialiseDisplay() {
-        clearInterval(this.timer);
-        let originalActiveTaskDuration = "duration" in this.state.activeTask ? this.state.activeTask.duration : 0;
-        const updateActiveTaskDurationState = state => {return {activeTask: {...state.activeTask, duration: originalActiveTaskDuration}}};
-
-        if (this.state.activeTaskIsRunning) {
-            this.timer = setInterval(() => {
-                originalActiveTaskDuration++;
-                this.setState(updateActiveTaskDurationState);
-                console.log("timer is on!");
-            }, 1000);
-        } else {
-            this.setState(updateActiveTaskDurationState);
-        }
     }
 
     render() {
         console.log('rendered once!');
         return <div className="today-view">
             <Header previous="/" txt="Home" />
-            <ActiveTask {...this.state.activeTask} isRunning={this.state.activeTaskIsRunning} handleResetClick={this.handleResetClick} handleFinishClick={this.handleFinishClick} handleResumeClick={this.handleResumeClick} />
-            <AddNewTask handleAddTask={this.handleAddTask} />
-            <TaskList taskList={this.state.taskList} />
+            <ActiveTask {...this.props.activeTask} isRunning={this.props.activeTaskIsRunning} />
+            {/* <AddNewTask handleAddTask={this.handleAddTask} />
+            <TaskList taskList={this.state.taskList} /> */}
         </div>
     }
 }

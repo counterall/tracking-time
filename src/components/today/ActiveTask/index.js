@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import TimeDisplay from "./active_task/TimeDisplay";
-import TaskInfo from "./active_task/TaskInfo";
-import Buttons from "./active_task/Buttons";
-import "../../style/modules/today/_active_task.scss";
+import TimeDisplay from "./TimeDisplay";
+import TaskInfo from "./TaskInfo";
+import Buttons from "./Buttons/Buttons.component";
+import "../../../style/modules/today/_active_task.scss";
 
 class ActiveTask extends Component {
 
@@ -19,7 +19,7 @@ class ActiveTask extends Component {
                 <React.Fragment>
                     <TaskInfo meta={taskMeta} />
                     <TimeDisplay timestamp={this.props.duration} />
-                    <Buttons taskIsRunning={this.props.isRunning} resetTask={this.props.handleResetClick} resumeTask={this.props.handleResumeClick} finishTask={this.props.handleFinishClick} />
+                    <Buttons taskIsRunning={this.props.isRunning} />
                 </React.Fragment>
             );
         } else {

@@ -7,7 +7,7 @@ function AddItem(props) {
 
     const history = useHistory();
     const {previous, previousName, action} = props.location.state;
-    console.log(history, props.match);
+    console.log(history);
 
     const itemType = props.match.params.type;
 
